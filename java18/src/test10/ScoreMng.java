@@ -10,14 +10,13 @@ public class ScoreMng {
 	
 	public ScoreMng() {
 		sc = new Scanner(System.in);
-		map_score = new TreeMap();
+		map_score = new TreeMap<>();
 	}
 	public void exec() {
 		int chosenNumber;
 		
 		while (true) {
-			System.out.print("1.Append, 2.Modify, 3.Remove, 4.View, 5.Exit=>");
-			chosenNumber = sc.nextInt();
+			chosenNumber = getNumber("1.Append, 2.Modify, 3.Remove, 4.View, 5.Exit=>");
 //			switch(chosenNumber) {
 //			   case 1 : append(); break;
 //			}
@@ -30,50 +29,88 @@ public class ScoreMng {
 			} else if (chosenNumber == 4) {
 				view();
 			} else if (chosenNumber == 5) {
-				exit();
+				break;
 			}
 		}
 	}
 	
 	public void append() {
-		int[] intArr = new int[4];
-		String name;
+		int key;
 		
 		while(true) {
-			System.out.print("[Append end=-999] 번호:");
-			intArr[0] = sc.nextInt();
-			sc.nextLine();
-			if (intArr[0] == -999) {
+			key = getNumber("[Append end=-999] 번호:");
+			if (key == -999) {
 				break;
-			} else if (!map_score.containsKey(intArr[0])) {
-			
-			
-				System.out.print("이름:");
-				name = sc.nextLine();
-				System.out.print("국어:");
-				intArr[1] = sc.nextInt();
-				System.out.print("영어:");
-				intArr[2] = sc.nextInt();
-				System.out.print("수학:");
-				intArr[3] = sc.nextInt();
-				
-				map_score.put(intArr[0], new Score(intArr[0], name, intArr[1], intArr[2], intArr[3]));
-			} else {
+			} 
+			if (map_score.containsKey(key)) {
 				System.out.println("이미 존재하는 번호입니다.");
+				continue;
 			}
+			map_score.put(key, getScore(key) );
 		}
 	}
 	
 	public void modify() {
+		int key;
 		
+		while(true) {
+			key = getNumber("[Append end=-999] 번호:");
+			if (key == -999) {
+				break;
+			}
+			if (!map_score.containsKey(key)) {
+				System.out.println("존재하지 않는 번호입니다.");
+				continue;
+			}
+			map_score.put(key, getScore(key));
+		}
 	}
 	public void remove() {
+		int key;
 		
+		while(true) {
+			key = getNumber("[Append end=-999] 번호:");
+			if (key == -999) {
+				break;
+			}
+			if (map_score.containsKey(key)) {
+				map_score.remove(key);
+			} else {
+				System.out.println("존재하지 않는 번호입니다.");
+			}
+		}
 	}
 	public void view() {
+		System.out.println("-------------------------------------------------");
 		
+		map_score.forEach((key, value) -> {
+			System.out.printf("%5d %6s %5d %5d %5d %5d %5.2f\n", key, value.name, value.kor, value.eng, value.mat, value.tot, value.avg);
+		});
+		
+		System.out.println("-------------------------------------------------");
 	}
-	public void exit() {
+	public int getNumber(String str) {
+		while(true) {
+			System.out.print(str);
+			
+			String temp = sc.nextLine();
+			
+			if (temp.matches("-?\\d+")) {
+				return Integer.parseInt(temp);
+			}
+			System.out.println("숫자를 입력하세요.");
+		}
+	}
+	public Score getScore(int num) {
+		String name;
+		int kor, eng, mat;
 		
+		System.out.print("이름:");
+		name = sc.nextLine();
+		kor = getNumber("국어:");
+		eng = getNumber("영어:");
+		mat = getNumber("수학:");
+		
+		return new Score(num, name, kor, eng, mat);
 	}
 }
