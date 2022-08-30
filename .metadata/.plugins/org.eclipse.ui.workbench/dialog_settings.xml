@@ -17,6 +17,7 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="E:\최승훈\test2\java19"/>
 			<item value="E:\최승훈\test2\java19\src\ex03"/>
 			<item value="E:\최승훈\test2\java19\src\ex02"/>
 		</list>
