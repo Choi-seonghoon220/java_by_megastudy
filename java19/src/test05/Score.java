@@ -1,7 +1,5 @@
 package test05;
 
-import java.util.Map;
-
 public class Score {
 	private String name;
 	private int ban, num, kor, eng, mat, tot;
@@ -61,14 +59,4 @@ public class Score {
 		
 	}
 	
-	public static void ranking(Map<Integer, Score> map) {
-		map.forEach((key1, value1) -> {
-			value1.rank = 1;
-			map.forEach((key2, value2) -> {
-				if (value1.tot < value2.tot) {
-					value1.rank++;
-				}
-			});
-		});
-	}
 }
